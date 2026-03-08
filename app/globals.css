@@ -1,26 +1,374 @@
 @import "tailwindcss";
+@import "@fontsource/hind-siliguri/400.css";
+@import "@fontsource/hind-siliguri/700.css";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light Theme (default) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #F0F7FF;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --border-color: #E5E7EB;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --input-bg: #FFFFFF;
+}
+
+/* Dark Theme */
+.dark {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-card: #1E293B;
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --border-color: #374151;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --input-bg: #0F172A;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-electric-blue: #1A56DB;
+  --color-sky-blue: #3B82F6;
+  --color-light-blue: #60A5FA;
+  --color-bloody-red: #DC143C;
+  --color-crimson-glow: #FF1744;
+  --color-silver: #6B7280;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-border: var(--border-color);
+  --font-sans: "Inter", sans-serif;
+  --font-bangla: "Hind Siliguri", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Smooth theme transition */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.2s ease;
+}
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effects */
+.blue-glow {
+  box-shadow: 0 0 20px rgba(26, 86, 219, 0.15);
+}
+
+.dark .blue-glow {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.25);
+}
+
+.red-glow {
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.15);
+}
+
+.dark .red-glow {
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.25);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+/* Floating particles animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(37, 99, 235, 0.5);
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+/* Proposal page theme-aware classes */
+.proposal-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dark .proposal-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.proposal-sub {
+  color: #6B7280;
+}
+
+.dark .proposal-sub {
+  color: #94A3B8;
+}
+
+/* ━━━ Proposal Motion Graphics ━━━ */
+
+/* Grid background */
+.proposal-grid {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(37,99,235,0.03) 59px, rgba(37,99,235,0.03) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(37,99,235,0.03) 59px, rgba(37,99,235,0.03) 60px);
+}
+
+/* Slide transitions */
+@keyframes slideEnter {
+  from { opacity: 0; transform: translateX(60px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slideExit {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(-60px) scale(0.98); }
+}
+
+/* Logo pulse */
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(37,99,235,0.4), 0 0 60px rgba(37,99,235,0.2); }
+  50% { transform: scale(1.08); box-shadow: 0 0 50px rgba(37,99,235,0.6), 0 0 100px rgba(37,99,235,0.3); }
+}
+
+/* Rotating ring around logo */
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Bottom wave scroll */
+@keyframes waveScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Slide-in animations */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scale in */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Red pulse for problem cards */
+@keyframes redPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,20,60,0); }
+  50% { box-shadow: 0 0 15px rgba(220,20,60,0.25); }
+}
+
+/* Shake effect */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* Phone float */
+@keyframes phoneFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Phone glow pulse */
+@keyframes phoneGlow {
+  0%, 100% { box-shadow: 0 20px 60px rgba(37,99,235,0.3); }
+  50% { box-shadow: 0 25px 80px rgba(37,99,235,0.5); }
+}
+
+/* Scan line */
+@keyframes scanLine {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(400px); opacity: 0; }
+}
+
+/* 3D flip for feature cards */
+@keyframes flipIn {
+  from { opacity: 0; transform: perspective(1000px) rotateY(90deg); }
+  to { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
+}
+
+/* Particle burst */
+@keyframes burstOut {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--bx), var(--by)) scale(0); }
+}
+
+/* Timeline draw */
+@keyframes drawLine {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* Radar ping / pulse dot */
+@keyframes radarPing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* Ripple on map */
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* Dot pop in */
+@keyframes dotPop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Gantt bar shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Phone drop in with bounce */
+@keyframes dropIn {
+  0% { opacity: 0; transform: translateY(-80px); }
+  60% { opacity: 1; transform: translateY(8px); }
+  80% { transform: translateY(-4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Grand logo bounce */
+@keyframes grandEntrance {
+  0% { opacity: 0; transform: translateY(-60px) scale(0.5); }
+  60% { opacity: 1; transform: translateY(10px) scale(1.1); }
+  80% { transform: translateY(-5px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Celebration particles */
+@keyframes celebrate {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--cx), var(--cy)) scale(0.3); }
+}
+
+/* Flag stripe sweep */
+@keyframes flagSweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Zoom in stat cards */
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Pill orbit float */
+@keyframes pillFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Glow pulse for CTA buttons */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.3); }
+  50% { box-shadow: 0 0 40px rgba(37,99,235,0.6), 0 0 60px rgba(37,99,235,0.2); }
+}
+
+/* Word fade in */
+@keyframes wordFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Divider glow pulse */
+@keyframes dividerGlow {
+  0%, 100% { box-shadow: -4px 0 15px rgba(37,99,235,0.1), 4px 0 15px rgba(37,99,235,0.1); }
+  50% { box-shadow: -8px 0 25px rgba(37,99,235,0.3), 8px 0 25px rgba(37,99,235,0.3); }
+}
+
+/* Badge bounce in */
+@keyframes badgeBounce {
+  0% { opacity: 0; transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
