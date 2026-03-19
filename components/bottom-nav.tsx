@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLang } from "@/components/language-context";
 import { Home, Grid3X3, CreditCard, MessageSquareWarning, User, Briefcase, ClipboardList, Bell, Settings, MapPin, CheckSquare, Clock } from "lucide-react";
 
-type NavItem = { bn: string; en: string; icon: React.ElementType; href: string };
+type NavItem = { bn: string; en: string; icon: React.ComponentType<{ className?: string }>; href: string };
 
 const citizenNav: NavItem[] = [
   { bn: "হোম", en: "Home", icon: Home, href: "/mobile/citizen/home" },

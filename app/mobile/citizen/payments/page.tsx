@@ -47,7 +47,7 @@ type Payment = {
   details: { label: string; value: string }[];
 };
 
-const typeConfig: Record<string, { icon: React.ElementType; gradient: string; bg: string; color: string }> = {
+const typeConfig: Record<string, { icon: React.ComponentType<{ className?: string }>; gradient: string; bg: string; color: string }> = {
   ট্যাক্স: { icon: Landmark, gradient: "from-emerald-500 to-green-500", bg: "bg-emerald-50 dark:bg-emerald-950/30", color: "text-emerald-600 dark:text-emerald-400" },
   পানি: { icon: Droplets, gradient: "from-cyan-500 to-blue-500", bg: "bg-cyan-50 dark:bg-cyan-950/30", color: "text-cyan-600 dark:text-cyan-400" },
   ফি: { icon: FileText, gradient: "from-amber-500 to-orange-500", bg: "bg-amber-50 dark:bg-amber-950/30", color: "text-amber-600 dark:text-amber-400" },

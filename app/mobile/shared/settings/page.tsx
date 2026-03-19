@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
@@ -55,7 +55,7 @@ function Toggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
 }
 
 type SettingItem = {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
   type: "toggle" | "value" | "link";
   stateKey?: string;
@@ -63,6 +63,10 @@ type SettingItem = {
 };
 
 export default function SettingsPage() {
+  return <Suspense><SettingsPageInner /></Suspense>;
+}
+
+function SettingsPageInner() {
   const role = useRole();
   const [toggles, setToggles] = useState<Record<string, boolean>>({
     darkMode: true,

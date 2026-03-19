@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
@@ -102,6 +102,10 @@ const priorityConfig: Record<string, { label: string; labelEn: string; bg: strin
 type Tab = "pending" | "processing" | "completed";
 
 export default function OfficerApplicationsPage() {
+  return <Suspense><OfficerApplicationsPageInner /></Suspense>;
+}
+
+function OfficerApplicationsPageInner() {
   const { t } = useLang();
   const router = useRouter();
   const searchParams = useSearchParams();

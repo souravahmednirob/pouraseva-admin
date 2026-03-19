@@ -52,7 +52,7 @@ type Doctor = {
   name: string;
   specialty: string;
   available: string;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
 };
 
 type HospitalType = {
@@ -117,7 +117,7 @@ const hospitals: HospitalType[] = [
 
 /* ─── Regular Services ─── */
 type Service = {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   name: string;
   time: string;
   category: string;

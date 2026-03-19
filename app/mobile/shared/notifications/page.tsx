@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/mobile-frame";
@@ -46,7 +46,7 @@ type Notification = {
   read: boolean;
 };
 
-const typeConfig: Record<string, { icon: React.ElementType; gradient: string; bg: string; color: string }> = {
+const typeConfig: Record<string, { icon: React.ComponentType<{ className?: string }>; gradient: string; bg: string; color: string }> = {
   application: { icon: FileText, gradient: "from-blue-500 to-blue-600", bg: "bg-blue-50 dark:bg-blue-900/15", color: "text-blue-600 dark:text-blue-400" },
   payment: { icon: CreditCard, gradient: "from-emerald-500 to-green-500", bg: "bg-emerald-50 dark:bg-emerald-900/15", color: "text-emerald-600 dark:text-emerald-400" },
   complaint: { icon: AlertTriangle, gradient: "from-amber-500 to-orange-500", bg: "bg-amber-50 dark:bg-amber-900/15", color: "text-amber-600 dark:text-amber-400" },
@@ -72,6 +72,10 @@ const groups = [
 ];
 
 export default function NotificationsPage() {
+  return <Suspense><NotificationsPageInner /></Suspense>;
+}
+
+function NotificationsPageInner() {
   const { t } = useLang();
   const role = useRole();
   const [notifications, setNotifications] = useState(initialNotifications);

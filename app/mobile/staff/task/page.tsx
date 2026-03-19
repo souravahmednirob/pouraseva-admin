@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import MobileFrame from "@/components/mobile-frame";
@@ -69,6 +69,10 @@ const allTasks: TaskDetail[] = [
 ];
 
 export default function StaffTaskPage() {
+  return <Suspense><StaffTaskPageInner /></Suspense>;
+}
+
+function StaffTaskPageInner() {
   const { t } = useLang();
   const searchParams = useSearchParams();
   const taskId = searchParams.get("id");

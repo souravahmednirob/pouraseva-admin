@@ -169,7 +169,7 @@ const applications: Application[] = [
   },
 ];
 
-const statusConfig: Record<string, { color: string; bg: string; icon: React.ElementType; borderColor: string; progressColor: string }> = {
+const statusConfig: Record<string, { color: string; bg: string; icon: React.ComponentType<{ className?: string }>; borderColor: string; progressColor: string }> = {
   চলমান: {
     color: "text-blue-600 dark:text-blue-400",
     bg: "bg-blue-50 dark:bg-blue-900/20",

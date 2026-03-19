@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
@@ -40,6 +40,10 @@ const citizens: Citizen[] = [
 ];
 
 export default function CouncilorCitizensPage() {
+  return <Suspense><CouncilorCitizensPageInner /></Suspense>;
+}
+
+function CouncilorCitizensPageInner() {
   const { t } = useLang();
   const searchParams = useSearchParams();
   const initialId = searchParams.get("id");

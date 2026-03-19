@@ -27,7 +27,7 @@ type Document = {
   name: string;
   category: string;
   issueDate: string;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   iconColor: string;
 };
 

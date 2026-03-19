@@ -27,7 +27,7 @@ import {
 type Complaint = {
   id: string;
   category: string;
-  categoryIcon: React.ElementType;
+  categoryIcon: React.ComponentType<{ className?: string }>;
   categoryGradient: string;
   categoryBg: string;
   description: string;
