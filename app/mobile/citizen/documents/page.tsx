@@ -3,6 +3,7 @@
 import { useState } from "react";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+import { useLang } from "@/components/language-context";
 import {
   Folder,
   FileText,
@@ -82,6 +83,7 @@ const documents: Document[] = [
 ];
 
 export default function DocumentsPage() {
+  const { t } = useLang();
   const [activeCategory, setActiveCategory] = useState("সব");
   const [showQR, setShowQR] = useState<Document | null>(null);
 
@@ -98,7 +100,7 @@ export default function DocumentsPage() {
           <div className="flex items-center gap-2 mb-4">
             <Folder className="w-5 h-5 text-electric-blue" />
             <h1 className="text-lg font-bold text-gray-900 dark:text-white font-bangla">
-              আমার দলিলপত্র
+              {t("আমার দলিলপত্র", "My Documents")}
             </h1>
           </div>
 
@@ -114,7 +116,7 @@ export default function DocumentsPage() {
                     : "bg-white dark:bg-[#1E293B] text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
                 }`}
               >
-                {tab}
+                {tab === "সব" ? t("সব", "All") : tab === "জন্ম/মৃত্যু সনদ" ? t("জন্ম/মৃত্যু সনদ", "Birth/Death Cert") : tab === "ট্রেড লাইসেন্স" ? t("ট্রেড লাইসেন্স", "Trade License") : t("পেমেন্ট রসিদ", "Payment Receipts")}
               </button>
             ))}
           </div>
@@ -183,7 +185,7 @@ export default function DocumentsPage() {
                   {showQR.name}
                 </h3>
                 <p className="text-[10px] text-gray-500 dark:text-gray-400 font-bangla text-center">
-                  স্ক্যান করে যাচাই করুন
+                  {t("স্ক্যান করে যাচাই করুন", "Scan to Verify")}
                 </p>
               </div>
             </div>

@@ -4,27 +4,30 @@ import { useState } from "react";
 import MobileFrame from "@/components/mobile-frame";
 import Link from "next/link";
 import { FileText, Wallet, AlertCircle } from "lucide-react";
-
-const slides = [
-  {
-    icon: FileText,
-    title: "সব সনদ এখন ডিজিটাল",
-    description: "জন্ম, মৃত্যু, নাগরিক সনদ — সব অনলাইনে আবেদন করুন",
-  },
-  {
-    icon: Wallet,
-    title: "ঘরে বসেই পেমেন্ট",
-    description: "ট্যাক্স, পানির বিল — bKash, Nagad দিয়ে মুহূর্তেই পরিশোধ",
-  },
-  {
-    icon: AlertCircle,
-    title: "সমস্যা জানান, সমাধান পান",
-    description: "রাস্তার গর্ত থেকে পানির সমস্যা — সরাসরি পৌরসভায় জানান",
-  },
-];
+import { useLang } from "@/components/language-context";
 
 export default function OnboardingPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useLang();
+
+  const slides = [
+    {
+      icon: FileText,
+      title: t("সব সনদ এখন ডিজিটাল", "All Certificates Now Digital"),
+      description: t("জন্ম, মৃত্যু, নাগরিক সনদ — সব অনলাইনে আবেদন করুন", "Birth, Death, Citizen certificates — apply online"),
+    },
+    {
+      icon: Wallet,
+      title: t("ঘরে বসেই পেমেন্ট", "Pay From Home"),
+      description: t("ট্যাক্স, পানির বিল — bKash, Nagad দিয়ে মুহূর্তেই পরিশোধ", "Tax, Water bill — pay instantly via bKash, Nagad"),
+    },
+    {
+      icon: AlertCircle,
+      title: t("সমস্যা জানান, সমাধান পান", "Report Problems, Get Solutions"),
+      description: t("রাস্তার গর্ত থেকে পানির সমস্যা — সরাসরি পৌরসভায় জানান", "Road potholes to water issues — report directly"),
+    },
+  ];
+
   const isLast = currentSlide === slides.length - 1;
 
   const handleNext = () => {
@@ -93,7 +96,7 @@ export default function OnboardingPage() {
           {isLast ? (
             <Link href="/mobile/citizen/login">
               <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-lg transition-all hover:opacity-90 active:scale-95">
-                শুরু করুন
+                {t("শুরু করুন", "Get Started")}
               </button>
             </Link>
           ) : (
@@ -101,7 +104,7 @@ export default function OnboardingPage() {
               onClick={handleNext}
               className="w-full py-3.5 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-lg transition-all hover:opacity-90 active:scale-95"
             >
-              পরবর্তী
+              {t("পরবর্তী", "Next")}
             </button>
           )}
         </div>

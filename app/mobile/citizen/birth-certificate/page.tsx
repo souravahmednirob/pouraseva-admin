@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+import { useLang } from "@/components/language-context";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,8 +14,6 @@ import {
   CreditCard,
   Smartphone,
 } from "lucide-react";
-
-const steps = ["শিশুর তথ্য", "ঠিকানা", "কাগজপত্র আপলোড", "আবেদন পর্যালোচনা"];
 
 const paymentMethods = [
   { id: "bkash", label: "bKash" },
@@ -40,6 +39,9 @@ export default function BirthCertificatePage() {
     paymentMethod: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const { t } = useLang();
+
+  const steps = [t("শিশুর তথ্য", "Child Info"), t("ঠিকানা", "Address"), t("কাগজপত্র আপলোড", "Upload Docs"), t("আবেদন পর্যালোচনা", "Review")];
 
   const updateField = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -58,10 +60,10 @@ export default function BirthCertificatePage() {
               <CheckCircle className="w-20 h-20 text-success" />
             </div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white font-bangla mb-2">
-              আবেদন সফল হয়েছে!
+              {t("আবেদন সফল হয়েছে!", "Application Submitted!")}
             </h2>
             <p className="text-gray-500 dark:text-gray-400 text-sm font-bangla mb-6">
-              আপনার ট্র্যাকিং নম্বর
+              {t("আপনার ট্র্যাকিং নম্বর", "Your Tracking Number")}
             </p>
             <div className="bg-white dark:bg-[#1E293B] border border-gray-200 dark:border-gray-700 rounded-xl px-6 py-4 mb-8">
               <p className="text-2xl font-mono text-electric-blue font-bold">
@@ -72,7 +74,7 @@ export default function BirthCertificatePage() {
               href="/mobile/citizen/home"
               className="w-full bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl text-center block"
             >
-              হোমে যান
+              {t("হোমে যান", "Go Home")}
             </Link>
           </div>
         )}
@@ -84,7 +86,7 @@ export default function BirthCertificatePage() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-lg font-bold text-gray-900 dark:text-white font-bangla">
-              জন্ম নিবন্ধন আবেদন
+              {t("জন্ম নিবন্ধন আবেদন", "Birth Registration")}
             </h1>
           </div>
 
@@ -138,7 +140,7 @@ export default function BirthCertificatePage() {
             <div className="space-y-3">
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  শিশুর নাম (বাংলা)
+                  {t("শিশুর নাম (বাংলা)", "Child Name (Bangla)")}
                 </span>
                 <input
                   type="text"
@@ -150,7 +152,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  শিশুর নাম (English)
+                  {t("শিশুর নাম (English)", "Child Name (English)")}
                 </span>
                 <input
                   type="text"
@@ -162,7 +164,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  জন্ম তারিখ
+                  {t("জন্ম তারিখ", "Date of Birth")}
                 </span>
                 <input
                   type="date"
@@ -173,7 +175,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  জন্মস্থান
+                  {t("জন্মস্থান", "Place of Birth")}
                 </span>
                 <input
                   type="text"
@@ -185,7 +187,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  পিতার NID
+                  {t("পিতার NID", "Father's NID")}
                 </span>
                 <input
                   type="text"
@@ -197,7 +199,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  পিতার নাম
+                  {t("পিতার নাম", "Father's Name")}
                 </span>
                 <input
                   type="text"
@@ -209,7 +211,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  মাতার NID
+                  {t("মাতার NID", "Mother's NID")}
                 </span>
                 <input
                   type="text"
@@ -221,7 +223,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  মাতার নাম
+                  {t("মাতার নাম", "Mother's Name")}
                 </span>
                 <input
                   type="text"
@@ -235,7 +237,7 @@ export default function BirthCertificatePage() {
                 onClick={() => setCurrentStep(2)}
                 className="w-full bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2 mt-2"
               >
-                পরবর্তী <ArrowRight className="w-4 h-4" />
+                {t("পরবর্তী", "Next")} <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}
@@ -245,7 +247,7 @@ export default function BirthCertificatePage() {
             <div className="space-y-3">
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  বর্তমান ঠিকানা
+                  {t("বর্তমান ঠিকানা", "Present Address")}
                 </span>
                 <input
                   type="text"
@@ -259,7 +261,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  স্থায়ী ঠিকানা
+                  {t("স্থায়ী ঠিকানা", "Permanent Address")}
                 </span>
                 <input
                   type="text"
@@ -273,7 +275,7 @@ export default function BirthCertificatePage() {
               </label>
               <label className="block">
                 <span className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1 block">
-                  ওয়ার্ড নম্বর
+                  {t("ওয়ার্ড নম্বর", "Ward No")}
                 </span>
                 <select
                   className={inputClass}
@@ -293,13 +295,13 @@ export default function BirthCertificatePage() {
                   onClick={() => setCurrentStep(1)}
                   className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                 >
-                  <ArrowLeft className="w-4 h-4" /> পূর্ববর্তী
+                  <ArrowLeft className="w-4 h-4" /> {t("পূর্ববর্তী", "Previous")}
                 </button>
                 <button
                   onClick={() => setCurrentStep(3)}
                   className="flex-1 bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                 >
-                  পরবর্তী <ArrowRight className="w-4 h-4" />
+                  {t("পরবর্তী", "Next")} <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -309,10 +311,10 @@ export default function BirthCertificatePage() {
           {currentStep === 3 && (
             <div className="space-y-3">
               {[
-                "শিশুর ছবি",
-                "পিতার NID",
-                "মাতার NID",
-                "হাসপাতাল সার্টিফিকেট",
+                t("শিশুর ছবি", "Child Photo"),
+                t("পিতার NID", "Father's NID"),
+                t("মাতার NID", "Mother's NID"),
+                t("হাসপাতাল সার্টিফিকেট", "Hospital Certificate"),
               ].map((label) => (
                 <div
                   key={label}
@@ -324,7 +326,7 @@ export default function BirthCertificatePage() {
                   </div>
                   <p className="text-gray-500 dark:text-gray-400 text-sm font-bangla">{label}</p>
                   <p className="text-gray-400 dark:text-gray-500 text-xs font-bangla">
-                    আপলোড করুন
+                    {t("আপলোড করুন", "Upload")}
                   </p>
                 </div>
               ))}
@@ -333,13 +335,13 @@ export default function BirthCertificatePage() {
                   onClick={() => setCurrentStep(2)}
                   className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                 >
-                  <ArrowLeft className="w-4 h-4" /> পূর্ববর্তী
+                  <ArrowLeft className="w-4 h-4" /> {t("পূর্ববর্তী", "Previous")}
                 </button>
                 <button
                   onClick={() => setCurrentStep(4)}
                   className="flex-1 bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                 >
-                  পরবর্তী <ArrowRight className="w-4 h-4" />
+                  {t("পরবর্তী", "Next")} <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -351,41 +353,41 @@ export default function BirthCertificatePage() {
               {/* Summary Card */}
               <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-xl p-4 space-y-2">
                 <h3 className="text-gray-900 dark:text-white font-bangla font-semibold mb-2">
-                  আবেদনের সারসংক্ষেপ
+                  {t("আবেদনের সারসংক্ষেপ", "Application Summary")}
                 </h3>
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">শিশুর নাম</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("শিশুর নাম", "Child Name")}</span>
                     <span className="text-gray-900 dark:text-white font-bangla">
                       {formData.childNameBn || "মোঃ আরিফ হোসেন"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">জন্ম তারিখ</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("জন্ম তারিখ", "Date of Birth")}</span>
                     <span className="text-gray-900 dark:text-white">
                       {formData.birthDate || "2024-01-15"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">জন্মস্থান</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("জন্মস্থান", "Place of Birth")}</span>
                     <span className="text-gray-900 dark:text-white font-bangla">
                       {formData.birthPlace || "জেনারেল হাসপাতাল"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">পিতার নাম</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("পিতার নাম", "Father's Name")}</span>
                     <span className="text-gray-900 dark:text-white font-bangla">
                       {formData.fatherName || "মোঃ করিম উদ্দিন"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">মাতার নাম</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("মাতার নাম", "Mother's Name")}</span>
                     <span className="text-gray-900 dark:text-white font-bangla">
                       {formData.motherName || "ফাতেমা বেগম"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 font-bangla">ওয়ার্ড</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("ওয়ার্ড", "Ward")}</span>
                     <span className="text-gray-900 dark:text-white font-bangla">
                       ওয়ার্ড {formData.wardNo || "৩"}
                     </span>
@@ -395,7 +397,7 @@ export default function BirthCertificatePage() {
 
               {/* Fee */}
               <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-xl p-4 flex items-center justify-between">
-                <span className="text-gray-500 dark:text-gray-400 font-bangla">ফি</span>
+                <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("ফি", "Fee")}</span>
                 <span className="text-xl font-bold text-electric-blue">
                   ৳100
                 </span>
@@ -404,7 +406,7 @@ export default function BirthCertificatePage() {
               {/* Payment Methods */}
               <div>
                 <h3 className="text-gray-900 dark:text-white font-bangla font-semibold mb-2">
-                  পেমেন্ট পদ্ধতি
+                  {t("পেমেন্ট পদ্ধতি", "Payment Method")}
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
                   {paymentMethods.map((pm) => (
@@ -433,13 +435,13 @@ export default function BirthCertificatePage() {
                   onClick={() => setCurrentStep(3)}
                   className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
                 >
-                  <ArrowLeft className="w-4 h-4" /> পূর্ববর্তী
+                  <ArrowLeft className="w-4 h-4" /> {t("পূর্ববর্তী", "Previous")}
                 </button>
                 <button
                   onClick={() => setShowSuccess(true)}
                   className="flex-1 bg-gradient-to-r from-bloody-red to-crimson-glow text-white font-bangla font-semibold py-3 rounded-xl"
                 >
-                  আবেদন জমা দিন
+                  {t("আবেদন জমা দিন", "Submit Application")}
                 </button>
               </div>
             </div>

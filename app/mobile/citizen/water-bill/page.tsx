@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+import { useLang } from "@/components/language-context";
 import {
   ArrowLeft,
   Search,
@@ -52,6 +53,7 @@ const paymentMethods = [
 ];
 
 export default function WaterBillPage() {
+  const { t } = useLang();
   const [meterNo, setMeterNo] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [selectedMonths, setSelectedMonths] = useState<string[]>([]);
@@ -87,7 +89,7 @@ export default function WaterBillPage() {
             <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-2xl p-6 w-full space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-gray-900 dark:text-white font-bangla font-bold text-lg">
-                  পেমেন্ট রসিদ
+                  {t("পেমেন্ট রসিদ", "Payment Receipt")}
                 </h3>
                 <button
                   onClick={() => setShowReceipt(false)}
@@ -102,17 +104,17 @@ export default function WaterBillPage() {
                   <span className="text-gray-900 dark:text-white font-mono">TXN-20240120-3291</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">পরিমাণ</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("পরিমাণ", "Amount")}</span>
                   <span className="text-electric-blue font-bold">
                     ৳{totalSelected.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">তারিখ</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("তারিখ", "Date")}</span>
                   <span className="text-gray-900 dark:text-white">২০২৪-০১-২০</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">মিটার নম্বর</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("মিটার নম্বর", "Meter No")}</span>
                   <span className="text-gray-900 dark:text-white font-mono">WM-2024-5678</span>
                 </div>
                 <div className="flex justify-between">
@@ -128,10 +130,10 @@ export default function WaterBillPage() {
               </div>
               <div className="flex gap-3 pt-2">
                 <button className="flex-1 bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
-                  <Download className="w-4 h-4" /> রসিদ ডাউনলোড
+                  <Download className="w-4 h-4" /> {t("রসিদ ডাউনলোড", "Download Receipt")}
                 </button>
                 <button className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
-                  <Share2 className="w-4 h-4" /> শেয়ার
+                  <Share2 className="w-4 h-4" /> {t("শেয়ার", "Share")}
                 </button>
               </div>
             </div>
@@ -145,7 +147,7 @@ export default function WaterBillPage() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-lg font-bold text-gray-900 dark:text-white font-bangla">
-              পানির বিল পরিশোধ
+              {t("পানির বিল পরিশোধ", "Water Bill Payment")}
             </h1>
           </div>
 
@@ -154,7 +156,7 @@ export default function WaterBillPage() {
             <input
               type="text"
               className="flex-1 bg-white dark:bg-[#0F172A] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-gray-100 text-sm placeholder:text-gray-400 focus:outline-none focus:border-electric-blue"
-              placeholder="মিটার নম্বর লিখুন"
+              placeholder={t("মিটার নম্বর লিখুন", "Enter meter number")}
               value={meterNo}
               onChange={(e) => setMeterNo(e.target.value)}
             />
@@ -162,7 +164,7 @@ export default function WaterBillPage() {
               onClick={() => setShowResult(true)}
               className="bg-electric-blue text-white px-4 rounded-lg flex items-center gap-1 font-bangla text-sm"
             >
-              <Search className="w-4 h-4" /> খুঁজুন
+              <Search className="w-4 h-4" /> {t("খুঁজুন", "Search")}
             </button>
           </div>
         </div>
@@ -176,19 +178,19 @@ export default function WaterBillPage() {
                 <div className="flex items-center gap-2 mb-2">
                   <Droplets className="w-5 h-5 text-sky-blue" />
                   <h3 className="text-gray-900 dark:text-white font-bangla font-semibold">
-                    গ্রাহকের তথ্য
+                    {t("গ্রাহকের তথ্য", "Consumer Info")}
                   </h3>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">নাম</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("নাম", "Name")}</span>
                   <span className="text-gray-900 dark:text-white font-bangla">আবদুল করিম</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">মিটার নম্বর</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("মিটার নম্বর", "Meter No")}</span>
                   <span className="text-gray-900 dark:text-white font-mono">WM-2024-5678</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">ঠিকানা</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("ঠিকানা", "Address")}</span>
                   <span className="text-gray-900 dark:text-white font-bangla">
                     স্টেশন রোড, ওয়ার্ড ৫
                   </span>
@@ -198,15 +200,15 @@ export default function WaterBillPage() {
               {/* Select All */}
               <div className="flex items-center justify-between">
                 <span className="text-gray-500 dark:text-gray-400 text-sm font-bangla">
-                  মাসিক বিলের তালিকা
+                  {t("মাসিক বিলের তালিকা", "Monthly Bills")}
                 </span>
                 <button
                   onClick={toggleAll}
                   className="text-electric-blue text-xs font-bangla"
                 >
                   {selectedMonths.length === unpaidBills.length
-                    ? "সব বাদ দিন"
-                    : "সব নির্বাচন করুন"}
+                    ? t("সব বাদ দিন", "Deselect All")
+                    : t("সব নির্বাচন করুন", "Select All")}
                 </button>
               </div>
 
@@ -243,7 +245,7 @@ export default function WaterBillPage() {
                         {bill.month}
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-xs font-bangla">
-                        শেষ তারিখ: {bill.dueDate}
+                        {t("শেষ তারিখ", "Due Date")}: {bill.dueDate}
                       </p>
                     </div>
                     <div className="text-right">
@@ -253,7 +255,7 @@ export default function WaterBillPage() {
                       <p
                         className={`text-xs font-bangla ${statusColor[bill.status]}`}
                       >
-                        {statusLabel[bill.status]}
+                        {bill.status === "overdue" ? t("বকেয়া", "Overdue") : bill.status === "due-soon" ? t("শীঘ্রই দেয়", "Due Soon") : t("পরিশোধিত", "Paid")}
                       </p>
                     </div>
                   </button>
@@ -264,7 +266,7 @@ export default function WaterBillPage() {
               {selectedMonths.length > 0 && (
                 <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-xl p-4 flex items-center justify-between">
                   <span className="text-gray-500 dark:text-gray-400 font-bangla">
-                    মোট নির্বাচিত
+                    {t("মোট নির্বাচিত", "Total Selected")}
                   </span>
                   <span className="text-2xl font-bold text-electric-blue">
                     ৳{totalSelected.toLocaleString()}
@@ -275,7 +277,7 @@ export default function WaterBillPage() {
               {/* Payment Methods */}
               <div>
                 <h3 className="text-gray-900 dark:text-white font-bangla font-semibold mb-2">
-                  পেমেন্ট পদ্ধতি
+                  {t("পেমেন্ট পদ্ধতি", "Payment Method")}
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
                   {paymentMethods.map((pm) => (
@@ -305,7 +307,7 @@ export default function WaterBillPage() {
                 disabled={selectedMonths.length === 0}
                 className="w-full bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold py-3 rounded-xl disabled:opacity-40"
               >
-                পেমেন্ট করুন ৳{totalSelected.toLocaleString()}
+                {t("পেমেন্ট করুন", "Pay Now")} ৳{totalSelected.toLocaleString()}
               </button>
             </div>
           )}

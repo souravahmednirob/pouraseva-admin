@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import MobileFrame from "@/components/mobile-frame";
 import { Shield } from "lucide-react";
+import { useLang } from "@/components/language-context";
 
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
@@ -22,6 +23,8 @@ export default function LoginPage() {
   const [confirmPin, setConfirmPin] = useState(["", "", "", ""]);
   const pinRefs = useRef<(HTMLInputElement | null)[]>([]);
   const confirmPinRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const { t } = useLang();
 
   const handleOtpChange = (index: number, value: string) => {
     if (value.length > 1) return;
@@ -71,7 +74,7 @@ export default function LoginPage() {
               activeTab === "login" ? "text-electric-blue" : "text-gray-500 dark:text-gray-400"
             }`}
           >
-            লগইন
+            {t("লগইন", "Login")}
             {activeTab === "login" && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric-blue" />
             )}
@@ -82,7 +85,7 @@ export default function LoginPage() {
               activeTab === "register" ? "text-electric-blue" : "text-gray-500 dark:text-gray-400"
             }`}
           >
-            নিবন্ধন
+            {t("নিবন্ধন", "Register")}
             {activeTab === "register" && (
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric-blue" />
             )}
@@ -96,7 +99,7 @@ export default function LoginPage() {
               {/* Phone Input */}
               <div>
                 <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                  মোবাইল নম্বর
+                  {t("মোবাইল নম্বর", "Mobile Number")}
                 </label>
                 <div className="flex items-center gap-2">
                   <div className="bg-white dark:bg-[#1E293B] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-500 dark:text-gray-400 text-sm">
@@ -117,14 +120,14 @@ export default function LoginPage() {
                 onClick={() => setOtpSent(true)}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
               >
-                OTP পাঠান
+                {t("OTP পাঠান", "Send OTP")}
               </button>
 
               {/* OTP Input */}
               {otpSent && (
                 <div className="flex flex-col gap-4">
                   <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla">
-                    OTP কোড লিখুন
+                    {t("OTP কোড লিখুন", "Enter OTP Code")}
                   </label>
                   <div className="flex items-center justify-between gap-2">
                     {otp.map((digit, i) => (
@@ -144,7 +147,7 @@ export default function LoginPage() {
                     onClick={() => { window.location.href = "/mobile/citizen/home"; }}
                     className="w-full py-3 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
                   >
-                    যাচাই করুন
+                    {t("যাচাই করুন", "Verify")}
                   </button>
                 </div>
               )}
@@ -154,7 +157,7 @@ export default function LoginPage() {
               {/* NID Input */}
               <div>
                 <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                  NID নম্বর
+                  {t("NID নম্বর", "NID Number")}
                 </label>
                 <input
                   type="text"
@@ -168,7 +171,7 @@ export default function LoginPage() {
               {/* Date of Birth */}
               <div>
                 <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                  জন্ম তারিখ
+                  {t("জন্ম তারিখ", "Date of Birth")}
                 </label>
                 <input
                   type="date"
@@ -183,7 +186,7 @@ export default function LoginPage() {
                 onClick={() => setNidVerified(true)}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
               >
-                NID যাচাই করুন
+                {t("NID যাচাই করুন", "Verify NID")}
               </button>
 
               {/* Mock Verified Card */}
@@ -191,7 +194,7 @@ export default function LoginPage() {
                 <>
                   <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/30 rounded-xl p-4">
                     <p className="text-green-700 dark:text-green-400 text-xs font-bangla mb-1">
-                      NID যাচাই সফল
+                      {t("NID যাচাই সফল", "NID Verified")}
                     </p>
                     <p className="text-gray-900 dark:text-white font-bangla font-semibold text-sm">
                       নাম: মোহাম্মদ রহিম উদ্দিন
@@ -201,7 +204,7 @@ export default function LoginPage() {
                   {/* Phone */}
                   <div>
                     <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                      মোবাইল নম্বর
+                      {t("মোবাইল নম্বর", "Mobile Number")}
                     </label>
                     <div className="flex items-center gap-2">
                       <div className="bg-white dark:bg-[#1E293B] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-500 dark:text-gray-400 text-sm">
@@ -220,7 +223,7 @@ export default function LoginPage() {
                   {/* PIN */}
                   <div>
                     <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                      ৪-ডিজিট পিন
+                      {t("৪-ডিজিট পিন", "4-Digit PIN")}
                     </label>
                     <div className="flex items-center justify-center gap-3">
                       {pin.map((digit, i) => (
@@ -243,7 +246,7 @@ export default function LoginPage() {
                   {/* Confirm PIN */}
                   <div>
                     <label className="text-gray-500 dark:text-gray-400 text-xs font-bangla mb-1.5 block">
-                      পিন নিশ্চিত করুন
+                      {t("পিন নিশ্চিত করুন", "Confirm PIN")}
                     </label>
                     <div className="flex items-center justify-center gap-3">
                       {confirmPin.map((digit, i) => (
@@ -268,7 +271,7 @@ export default function LoginPage() {
                     onClick={() => { window.location.href = "/mobile/citizen/home"; }}
                     className="w-full py-3 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
                   >
-                    নিবন্ধন সম্পন্ন করুন
+                    {t("নিবন্ধন সম্পন্ন করুন", "Complete Registration")}
                   </button>
                 </>
               )}

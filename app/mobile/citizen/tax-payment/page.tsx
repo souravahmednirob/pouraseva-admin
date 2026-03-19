@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+import { useLang } from "@/components/language-context";
 import {
   ArrowLeft,
   Search,
@@ -30,6 +31,7 @@ const paymentMethods = [
 ];
 
 export default function TaxPaymentPage() {
+  const { t } = useLang();
   const [holdingNo, setHoldingNo] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);
@@ -63,7 +65,7 @@ export default function TaxPaymentPage() {
             <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-2xl p-6 w-full space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-gray-900 dark:text-white font-bangla font-bold text-lg">
-                  পেমেন্ট রসিদ
+                  {t("পেমেন্ট রসিদ", "Payment Receipt")}
                 </h3>
                 <button
                   onClick={() => setShowReceipt(false)}
@@ -80,21 +82,21 @@ export default function TaxPaymentPage() {
                   <span className="text-gray-900 dark:text-white font-mono">TXN-20240115-7842</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">পরিমাণ</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("পরিমাণ", "Amount")}</span>
                   <span className="text-electric-blue font-bold">
                     ৳{totalSelected.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">তারিখ</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("তারিখ", "Date")}</span>
                   <span className="text-gray-900 dark:text-white">২০২৪-০১-১৫</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">হোল্ডিং নম্বর</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("হোল্ডিং নম্বর", "Holding No")}</span>
                   <span className="text-gray-900 dark:text-white">KL-2024-0123</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500 dark:text-gray-400 font-bangla">মালিক</span>
+                  <span className="text-gray-500 dark:text-gray-400 font-bangla">{t("মালিক", "Owner")}</span>
                   <span className="text-gray-900 dark:text-white font-bangla">
                     মোহাম্মদ রহিম উদ্দিন
                   </span>
@@ -102,10 +104,10 @@ export default function TaxPaymentPage() {
               </div>
               <div className="flex gap-3 pt-2">
                 <button className="flex-1 bg-electric-blue text-white font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
-                  <Download className="w-4 h-4" /> রসিদ ডাউনলোড
+                  <Download className="w-4 h-4" /> {t("রসিদ ডাউনলোড", "Download Receipt")}
                 </button>
                 <button className="flex-1 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 font-bangla font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
-                  <Share2 className="w-4 h-4" /> শেয়ার
+                  <Share2 className="w-4 h-4" /> {t("শেয়ার", "Share")}
                 </button>
               </div>
             </div>
@@ -119,7 +121,7 @@ export default function TaxPaymentPage() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-lg font-bold text-gray-900 dark:text-white font-bangla">
-              হোল্ডিং ট্যাক্স পরিশোধ
+              {t("হোল্ডিং ট্যাক্স পরিশোধ", "Holding Tax Payment")}
             </h1>
           </div>
 
@@ -128,7 +130,7 @@ export default function TaxPaymentPage() {
             <input
               type="text"
               className="flex-1 bg-white dark:bg-[#0F172A] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-gray-100 text-sm placeholder:text-gray-400 focus:outline-none focus:border-electric-blue"
-              placeholder="হোল্ডিং নম্বর লিখুন"
+              placeholder={t("হোল্ডিং নম্বর লিখুন", "Enter holding number")}
               value={holdingNo}
               onChange={(e) => setHoldingNo(e.target.value)}
             />
@@ -136,7 +138,7 @@ export default function TaxPaymentPage() {
               onClick={() => setShowResult(true)}
               className="bg-electric-blue text-white px-4 rounded-lg flex items-center gap-1 font-bangla text-sm"
             >
-              <Search className="w-4 h-4" /> তথ্য দেখুন
+              <Search className="w-4 h-4" /> {t("তথ্য দেখুন", "View Info")}
             </button>
           </div>
         </div>
@@ -165,7 +167,7 @@ export default function TaxPaymentPage() {
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t border-gray-100 dark:border-gray-700">
                   <span className="text-gray-500 dark:text-gray-400 font-bangla text-sm">
-                    মোট বকেয়া
+                    {t("মোট বকেয়া", "Total Due")}
                   </span>
                   <span className="text-2xl font-bold text-bloody-red">
                     ৳45,000
@@ -176,15 +178,15 @@ export default function TaxPaymentPage() {
               {/* Select All */}
               <div className="flex items-center justify-between">
                 <span className="text-gray-500 dark:text-gray-400 text-sm font-bangla">
-                  বছর অনুযায়ী ট্যাক্স
+                  {t("বছর অনুযায়ী ট্যাক্স", "Tax by Year")}
                 </span>
                 <button
                   onClick={toggleAll}
                   className="text-electric-blue text-xs font-bangla"
                 >
                   {selectedYears.length === taxYears.length
-                    ? "সব বাদ দিন"
-                    : "সব নির্বাচন করুন"}
+                    ? t("সব বাদ দিন", "Deselect All")
+                    : t("সব নির্বাচন করুন", "Select All")}
                 </button>
               </div>
 
@@ -227,7 +229,7 @@ export default function TaxPaymentPage() {
               {selectedYears.length > 0 && (
                 <div className="bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-none rounded-xl p-4 flex items-center justify-between">
                   <span className="text-gray-500 dark:text-gray-400 font-bangla">
-                    মোট নির্বাচিত
+                    {t("মোট নির্বাচিত", "Total Selected")}
                   </span>
                   <span className="text-2xl font-bold text-electric-blue">
                     ৳{totalSelected.toLocaleString()}
@@ -238,7 +240,7 @@ export default function TaxPaymentPage() {
               {/* Payment Methods */}
               <div>
                 <h3 className="text-gray-900 dark:text-white font-bangla font-semibold mb-2">
-                  পেমেন্ট পদ্ধতি
+                  {t("পেমেন্ট পদ্ধতি", "Payment Method")}
                 </h3>
                 <div className="grid grid-cols-2 gap-2">
                   {paymentMethods.map((pm) => (
@@ -268,7 +270,7 @@ export default function TaxPaymentPage() {
                 disabled={selectedYears.length === 0}
                 className="w-full bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold py-3 rounded-xl disabled:opacity-40"
               >
-                পেমেন্ট করুন ৳{totalSelected.toLocaleString()}
+                {t("পেমেন্ট করুন", "Pay Now")} ৳{totalSelected.toLocaleString()}
               </button>
             </div>
           )}

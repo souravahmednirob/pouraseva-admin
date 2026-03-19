@@ -1,8 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+
+function useRole(): "citizen" | "officer" | "councilor" | "staff" {
+  const searchParams = useSearchParams();
+  const roleParam = searchParams.get("role");
+  if (roleParam === "officer" || roleParam === "councilor" || roleParam === "staff") return roleParam;
+  if (typeof window === "undefined") return "citizen";
+  const ref = document.referrer || "";
+  if (ref.includes("/officer/")) return "officer";
+  if (ref.includes("/councilor/")) return "councilor";
+  if (ref.includes("/staff/")) return "staff";
+  return "citizen";
+}
 import {
   Globe,
   Moon,
@@ -50,6 +63,7 @@ type SettingItem = {
 };
 
 export default function SettingsPage() {
+  const role = useRole();
   const [toggles, setToggles] = useState<Record<string, boolean>>({
     darkMode: true,
     biometric: false,
@@ -144,7 +158,7 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      <BottomNav role="citizen" />
+      <BottomNav role={role} />
     </MobileFrame>
   );
 }

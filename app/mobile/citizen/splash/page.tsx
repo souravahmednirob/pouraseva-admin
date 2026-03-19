@@ -3,8 +3,11 @@
 import MobileFrame from "@/components/mobile-frame";
 import Link from "next/link";
 import { Shield } from "lucide-react";
+import { useLang } from "@/components/language-context";
 
 export default function SplashPage() {
+  const { t } = useLang();
+
   return (
     <MobileFrame>
       <style jsx>{`
@@ -70,7 +73,7 @@ export default function SplashPage() {
 
           {/* Tagline */}
           <p className="text-gray-500 dark:text-gray-400 font-bangla text-base">
-            আপনার পৌরসভা, আপনার হাতে
+            {t("আপনার পৌরসভা, আপনার হাতে", "Your Municipality, In Your Hands")}
           </p>
         </div>
 
@@ -78,7 +81,7 @@ export default function SplashPage() {
         <div className="absolute bottom-12 left-0 right-0 px-8">
           <Link href="/mobile/citizen/onboarding">
             <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-electric-blue to-sky-blue text-white font-bangla font-semibold text-lg transition-all hover:opacity-90 active:scale-95">
-              শুরু করুন
+              {t("শুরু করুন", "Get Started")}
             </button>
           </Link>
         </div>

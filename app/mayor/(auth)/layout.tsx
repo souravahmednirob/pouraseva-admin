@@ -1,7 +1,9 @@
+import HomeButton from "@/components/home-button";
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <><HomeButton />{children}</>;
 }

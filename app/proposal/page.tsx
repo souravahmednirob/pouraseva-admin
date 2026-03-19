@@ -10,7 +10,9 @@ import {
   Maximize,
   Sun,
   Moon,
+  Home,
 } from "lucide-react";
+import Link from "next/link";
 
 // Dynamic import Canvas (no SSR)
 const Canvas = dynamic(
@@ -26,27 +28,17 @@ const WaveBackground = dynamic(() => import("@/components/three/WaveBackground")
 const TitleScene = dynamic(() => import("./slides/Slide01_Title").then((m) => ({ default: m.TitleScene })), { ssr: false });
 const ProblemScene = dynamic(() => import("./slides/Slide02_Problem").then((m) => ({ default: m.ProblemScene })), { ssr: false });
 const SolutionScene = dynamic(() => import("./slides/Slide03_Solution").then((m) => ({ default: m.SolutionScene })), { ssr: false });
-const FeaturesScene = dynamic(() => import("./slides/Slide04_Features").then((m) => ({ default: m.FeaturesScene })), { ssr: false });
-const PilotScene = dynamic(() => import("./slides/Slide05_Pilot").then((m) => ({ default: m.PilotScene })), { ssr: false });
-const ScaleScene = dynamic(() => import("./slides/Slide06_Scale").then((m) => ({ default: m.ScaleScene })), { ssr: false });
-const ROIScene = dynamic(() => import("./slides/Slide07_ROI").then((m) => ({ default: m.ROIScene })), { ssr: false });
-const TimelineScene = dynamic(() => import("./slides/Slide08_Timeline").then((m) => ({ default: m.TimelineScene })), { ssr: false });
-const DemoScene = dynamic(() => import("./slides/Slide09_Demo").then((m) => ({ default: m.DemoScene })), { ssr: false });
+const PilotScaleScene = dynamic(() => import("./slides/Slide05_PilotScale").then((m) => ({ default: m.PilotScaleScene })), { ssr: false });
 const ClosingScene = dynamic(() => import("./slides/Slide10_Closing").then((m) => ({ default: m.ClosingScene })), { ssr: false });
 
 // Dynamic import slide content
 const TitleContent = dynamic(() => import("./slides/Slide01_Title").then((m) => ({ default: m.TitleContent })), { ssr: false });
 const ProblemContent = dynamic(() => import("./slides/Slide02_Problem").then((m) => ({ default: m.ProblemContent })), { ssr: false });
 const SolutionContent = dynamic(() => import("./slides/Slide03_Solution").then((m) => ({ default: m.SolutionContent })), { ssr: false });
-const FeaturesContent = dynamic(() => import("./slides/Slide04_Features").then((m) => ({ default: m.FeaturesContent })), { ssr: false });
-const PilotContent = dynamic(() => import("./slides/Slide05_Pilot").then((m) => ({ default: m.PilotContent })), { ssr: false });
-const ScaleContent = dynamic(() => import("./slides/Slide06_Scale").then((m) => ({ default: m.ScaleContent })), { ssr: false });
-const ROIContent = dynamic(() => import("./slides/Slide07_ROI").then((m) => ({ default: m.ROIContent })), { ssr: false });
-const TimelineContent = dynamic(() => import("./slides/Slide08_Timeline").then((m) => ({ default: m.TimelineContent })), { ssr: false });
-const DemoContent = dynamic(() => import("./slides/Slide09_Demo").then((m) => ({ default: m.DemoContent })), { ssr: false });
+const PilotScaleContent = dynamic(() => import("./slides/Slide05_PilotScale").then((m) => ({ default: m.PilotScaleContent })), { ssr: false });
 const ClosingContent = dynamic(() => import("./slides/Slide10_Closing").then((m) => ({ default: m.ClosingContent })), { ssr: false });
 
-const TOTAL_SLIDES = 10;
+const TOTAL_SLIDES = 5;
 
 // Slide transition variants
 const slideVariants = {
@@ -120,31 +112,21 @@ export default function ProposalPage() {
     document.documentElement.requestFullscreen?.();
   };
 
-  // Scene components array
+  // Scene components array (5 slides)
   const scenes = [
     TitleScene,
     ProblemScene,
     SolutionScene,
-    FeaturesScene,
-    PilotScene,
-    ScaleScene,
-    ROIScene,
-    TimelineScene,
-    DemoScene,
+    PilotScaleScene,
     ClosingScene,
   ];
 
-  // Content components array
+  // Content components array (5 slides)
   const contents = [
     TitleContent,
     ProblemContent,
     SolutionContent,
-    FeaturesContent,
-    PilotContent,
-    ScaleContent,
-    ROIContent,
-    TimelineContent,
-    DemoContent,
+    PilotScaleContent,
     ClosingContent,
   ];
 
@@ -201,6 +183,13 @@ export default function ProposalPage() {
 
       {/* Top Controls */}
       <div className="absolute top-4 right-4 z-30 flex items-center gap-3">
+        <Link
+          href="/mobile"
+          title="Home"
+          className={`p-2 rounded-lg transition-colors ${isDark ? "bg-white/10 hover:bg-white/15 text-gray-400" : "bg-black/5 hover:bg-black/10 text-gray-500"}`}
+        >
+          <Home className="w-4 h-4" />
+        </Link>
         <span className={`text-sm tabular-nums ${isDark ? "text-gray-400" : "text-gray-500"}`}>
           {current + 1} / {TOTAL_SLIDES}
         </span>
@@ -219,8 +208,8 @@ export default function ProposalPage() {
         </button>
       </div>
 
-      {/* HTML Content Overlay */}
-      <div className="absolute inset-0 z-10">
+      {/* HTML Content Overlay — pointer-events-none so mouse reaches Canvas for orbit */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={current}
@@ -245,7 +234,7 @@ export default function ProposalPage() {
           onClick={prev}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+          className={`pointer-events-auto absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
             isDark
               ? "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm"
               : "bg-white/80 hover:bg-white text-gray-700 shadow-lg backdrop-blur-sm"
@@ -259,7 +248,7 @@ export default function ProposalPage() {
           onClick={next}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+          className={`pointer-events-auto absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
             isDark
               ? "bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm"
               : "bg-white/80 hover:bg-white text-gray-700 shadow-lg backdrop-blur-sm"
@@ -270,7 +259,7 @@ export default function ProposalPage() {
       )}
 
       {/* Dot Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+      <div className="pointer-events-auto absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
           <button
             key={i}

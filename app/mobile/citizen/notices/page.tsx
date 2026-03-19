@@ -3,6 +3,7 @@
 import { useState } from "react";
 import MobileFrame from "@/components/mobile-frame";
 import BottomNav from "@/components/bottom-nav";
+import { useLang } from "@/components/language-context";
 import {
   Megaphone,
   Pin,
@@ -94,6 +95,7 @@ const notices: Notice[] = [
 ];
 
 export default function NoticesPage() {
+  const { t } = useLang();
   const [activeFilter, setActiveFilter] = useState("সব");
   const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null);
 
@@ -117,7 +119,7 @@ export default function NoticesPage() {
           <div className="flex items-center gap-2 mb-4">
             <Megaphone className="w-5 h-5 text-electric-blue" />
             <h1 className="text-lg font-bold text-gray-900 dark:text-white font-bangla">
-              নোটিশ বোর্ড
+              {t("নোটিশ বোর্ড", "Notice Board")}
             </h1>
           </div>
 
@@ -133,7 +135,7 @@ export default function NoticesPage() {
                     : "bg-white dark:bg-[#1E293B] text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
                 }`}
               >
-                {f}
+                {f === "সব" ? t("সব", "All") : f === "গুরুত্বপূর্ণ" ? t("গুরুত্বপূর্ণ", "Important") : f === "জরুরি" ? t("জরুরি", "Emergency") : t("ওয়ার্ড-নির্দিষ্ট", "Ward Specific")}
               </button>
             ))}
           </div>
@@ -162,12 +164,12 @@ export default function NoticesPage() {
                 </h3>
                 {notice.type === "emergency" && (
                   <span className="px-2 py-0.5 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 text-[10px] rounded-full font-bangla whitespace-nowrap">
-                    জরুরি
+                    {t("জরুরি", "Emergency")}
                   </span>
                 )}
                 {notice.type === "important" && (
                   <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[10px] rounded-full font-bangla whitespace-nowrap">
-                    গুরুত্বপূর্ণ
+                    {t("গুরুত্বপূর্ণ", "Important")}
                   </span>
                 )}
               </div>
@@ -183,7 +185,7 @@ export default function NoticesPage() {
                 {notice.preview}
               </p>
               <span className="text-[10px] text-electric-blue font-bangla mt-1.5 inline-block">
-                বিস্তারিত পড়ুন
+                {t("বিস্তারিত পড়ুন", "Read More")}
               </span>
             </button>
           ))}
@@ -200,7 +202,7 @@ export default function NoticesPage() {
                 <ChevronLeft className="w-5 h-5 text-gray-900 dark:text-white" />
               </button>
               <h2 className="text-sm font-bold text-gray-900 dark:text-white font-bangla flex-1">
-                নোটিশ বিস্তারিত
+                {t("নোটিশ বিস্তারিত", "Notice Details")}
               </h2>
               <button className="w-8 h-8 rounded-full bg-white dark:bg-[#1E293B] border border-gray-100 dark:border-gray-700 flex items-center justify-center">
                 <Share2 className="w-4 h-4 text-electric-blue" />
@@ -219,12 +221,12 @@ export default function NoticesPage() {
                 )}
                 {selectedNotice.type === "emergency" && (
                   <span className="px-2 py-0.5 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 text-xs rounded-full font-bangla">
-                    জরুরি
+                    {t("জরুরি", "Emergency")}
                   </span>
                 )}
                 {selectedNotice.type === "important" && (
                   <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs rounded-full font-bangla">
-                    গুরুত্বপূর্ণ
+                    {t("গুরুত্বপূর্ণ", "Important")}
                   </span>
                 )}
               </div>
@@ -247,11 +249,11 @@ export default function NoticesPage() {
                 </p>
               </div>
               <div className="text-xs text-gray-400 dark:text-gray-500 font-bangla">
-                <span className="text-gray-300 dark:text-gray-600">প্রকাশক:</span>{" "}
+                <span className="text-gray-300 dark:text-gray-600">{t("প্রকাশক", "Published By")}:</span>{" "}
                 {selectedNotice.publishedBy}
               </div>
               <div className="text-xs text-gray-400 dark:text-gray-500 font-bangla mt-1">
-                <span className="text-gray-300 dark:text-gray-600">প্রকাশের তারিখ:</span>{" "}
+                <span className="text-gray-300 dark:text-gray-600">{t("প্রকাশের তারিখ", "Published Date")}:</span>{" "}
                 {selectedNotice.date}
               </div>
             </div>
