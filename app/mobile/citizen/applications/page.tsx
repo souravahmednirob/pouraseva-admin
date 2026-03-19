@@ -40,7 +40,7 @@ type Application = {
   id: number;
   trackingId: string;
   serviceName: string;
-  serviceIcon: React.ElementType;
+  serviceIcon: React.ComponentType<{ className?: string }>;
   submittedDate: string;
   status: string;
   progress: number;
